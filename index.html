@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="When Lambo? - Calculate when your Bitcoin savings will let you afford your dream Lamborghini. Plan your crypto journey to automotive excellence.">
+    <title>When Lambo? | Bitcoin Savings Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Animated Background -->
+        <div class="bg-animation">
+            <div class="floating-btc">₿</div>
+            <div class="floating-btc">₿</div>
+            <div class="floating-btc">₿</div>
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">₿</span>
+                <span class="logo-text">When Lambo?</span>
+            </div>
+            <div class="btc-price-badge" id="btc-price-badge">
+                <span class="price-label">BTC/USD</span>
+                <span class="price-value" id="current-btc-price">Loading...</span>
+            </div>
+        </header>
+
+        <!-- Main Result Display -->
+        <section class="result-section" id="result-section">
+            <div class="result-card">
+                <div class="result-icon">🏎️</div>
+                <h1 class="result-title" id="result-title">Enter Your Details Below</h1>
+                <p class="result-subtitle" id="result-subtitle">See when you'll be driving your dream Lamborghini</p>
+                <div class="result-details" id="result-details"></div>
+            </div>
+        </section>
+
+        <!-- Calculator Inputs -->
+        <main class="calculator-section">
+            <div class="inputs-grid">
+                <!-- Lamborghini Model Selector -->
+                <div class="input-card" id="lambo-selector-container"></div>
+
+                <!-- Growth Rate Input -->
+                <div class="input-card" id="growth-rate-container"></div>
+
+                <!-- Inflation Rate Input -->
+                <div class="input-card" id="inflation-rate-container"></div>
+
+                <!-- Current BTC Holdings -->
+                <div class="input-card" id="btc-holdings-container"></div>
+
+                <!-- Monthly Savings -->
+                <div class="input-card" id="monthly-savings-container"></div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by Bitcoin dreams ₿ | Not financial advice</p>
+        </footer>
+    </div>
+
+    <script src="components/LamboSelector.js"></script>
+    <script src="components/GrowthRateInput.js"></script>
+    <script src="components/InflationRateInput.js"></script>
+    <script src="components/BtcHoldingsInput.js"></script>
+    <script src="components/MonthlySavingsInput.js"></script>
+    <script src="js/calculator.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

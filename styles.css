@@ -1,0 +1,644 @@
+/* =============================================
+   WHEN LAMBO? - Bitcoin Savings Calculator
+   Modern, sleek design with BTC orange theme
+   ============================================= */
+
+/* CSS Custom Properties / Design Tokens */
+:root {
+    /* BTC Orange Palette */
+    --btc-orange: #F7931A;
+    --btc-orange-light: #FFB347;
+    --btc-orange-dark: #E8850F;
+    --btc-gold: #FFD700;
+    
+    /* Dark Theme Colors */
+    --bg-primary: #0D0D0F;
+    --bg-secondary: #141418;
+    --bg-card: #1A1A1F;
+    --bg-card-hover: #222228;
+    --bg-input: #0F0F12;
+    
+    /* Text Colors */
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A8;
+    --text-muted: #6B6B75;
+    
+    /* Accent Colors */
+    --success: #00D68F;
+    --warning: #FFB800;
+    --error: #FF4D4D;
+    
+    /* Gradients */
+    --gradient-orange: linear-gradient(135deg, var(--btc-orange) 0%, var(--btc-orange-dark) 100%);
+    --gradient-gold: linear-gradient(135deg, var(--btc-gold) 0%, var(--btc-orange) 100%);
+    --gradient-card: linear-gradient(145deg, rgba(247, 147, 26, 0.08) 0%, rgba(247, 147, 26, 0.02) 100%);
+    --gradient-glow: radial-gradient(circle, rgba(247, 147, 26, 0.15) 0%, transparent 70%);
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(247, 147, 26, 0.3);
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+}
+
+/* Reset & Base Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* App Container */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* =============================================
+   Background Animation
+   ============================================= */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.floating-btc {
+    position: absolute;
+    font-size: 3rem;
+    color: rgba(247, 147, 26, 0.05);
+    animation: float 20s infinite ease-in-out;
+}
+
+.floating-btc:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-btc:nth-child(2) {
+    top: 60%;
+    right: 15%;
+    animation-delay: -7s;
+    font-size: 4rem;
+}
+
+.floating-btc:nth-child(3) {
+    bottom: 20%;
+    left: 30%;
+    animation-delay: -14s;
+    font-size: 2.5rem;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--btc-orange);
+    top: -200px;
+    right: -100px;
+    animation: pulse 8s infinite ease-in-out;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--btc-gold);
+    bottom: -150px;
+    left: -100px;
+    animation: pulse 10s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-30px) rotate(5deg);
+    }
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+    75% {
+        transform: translateY(30px) rotate(-5deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.5;
+    }
+}
+
+/* =============================================
+   Header Styles
+   ============================================= */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-lg) 0;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.logo-icon {
+    font-size: 2.5rem;
+    color: var(--btc-orange);
+    text-shadow: 0 0 20px rgba(247, 147, 26, 0.5);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px rgba(247, 147, 26, 0.5);
+    }
+    to {
+        text-shadow: 0 0 30px rgba(247, 147, 26, 0.8), 0 0 40px rgba(247, 147, 26, 0.4);
+    }
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btc-price-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: var(--space-sm) var(--space-lg);
+    background: var(--bg-card);
+    border: 1px solid rgba(247, 147, 26, 0.2);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-normal);
+}
+
+.btc-price-badge:hover {
+    border-color: var(--btc-orange);
+    box-shadow: var(--shadow-glow);
+}
+
+.price-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.price-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--btc-orange);
+}
+
+/* =============================================
+   Result Section
+   ============================================= */
+.result-section {
+    padding: var(--space-2xl) 0;
+    position: relative;
+    z-index: 10;
+}
+
+.result-card {
+    background: var(--gradient-card);
+    border: 1px solid rgba(247, 147, 26, 0.15);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: var(--transition-normal);
+}
+
+.result-card:hover {
+    border-color: rgba(247, 147, 26, 0.3);
+    box-shadow: var(--shadow-glow);
+}
+
+.result-icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-md);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.result-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: var(--space-sm);
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.result-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+.result-details {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+    margin-top: var(--space-lg);
+}
+
+.result-stat {
+    text-align: center;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.result-stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--btc-orange);
+    display: block;
+}
+
+.result-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.result-success {
+    animation: celebrate 0.6s ease-out;
+}
+
+@keyframes celebrate {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =============================================
+   Calculator Section
+   ============================================= */
+.calculator-section {
+    position: relative;
+    z-index: 10;
+    padding-bottom: var(--space-2xl);
+}
+
+.inputs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+}
+
+/* =============================================
+   Input Card Styles
+   ============================================= */
+.input-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: var(--transition-normal);
+}
+
+.input-card:hover {
+    border-color: rgba(247, 147, 26, 0.2);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.input-card:focus-within {
+    border-color: var(--btc-orange);
+    box-shadow: 0 0 0 3px rgba(247, 147, 26, 0.1);
+}
+
+.input-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.input-icon {
+    font-size: 1.5rem;
+}
+
+.input-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-description {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+/* Form Controls */
+.form-control {
+    width: 100%;
+    padding: var(--space-md);
+    background: var(--bg-input);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    outline: none;
+}
+
+.form-control:hover {
+    border-color: rgba(247, 147, 26, 0.3);
+}
+
+.form-control:focus {
+    border-color: var(--btc-orange);
+    box-shadow: 0 0 0 3px rgba(247, 147, 26, 0.15);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+/* Select Dropdown */
+select.form-control {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23F7931A' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-md) center;
+    padding-right: var(--space-xl);
+}
+
+select.form-control option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    padding: var(--space-sm);
+}
+
+/* Range Slider */
+.range-container {
+    width: 100%;
+}
+
+.range-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--bg-input);
+    border-radius: 3px;
+    outline: none;
+    margin: var(--space-md) 0;
+}
+
+.range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--gradient-orange);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(247, 147, 26, 0.5);
+    transition: var(--transition-fast);
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(247, 147, 26, 0.7);
+}
+
+.range-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--gradient-orange);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 10px rgba(247, 147, 26, 0.5);
+}
+
+.range-value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.range-current {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--btc-orange);
+}
+
+.range-limits {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Number Input with Unit */
+.input-with-unit {
+    position: relative;
+}
+
+.input-with-unit .form-control {
+    padding-right: 60px;
+}
+
+.input-unit {
+    position: absolute;
+    right: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--btc-orange);
+}
+
+/* =============================================
+   Footer
+   ============================================= */
+.footer {
+    text-align: center;
+    padding: var(--space-xl) 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* =============================================
+   Responsive Design
+   ============================================= */
+@media (max-width: 768px) {
+    .app-container {
+        padding: var(--space-md);
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: center;
+    }
+    
+    .btc-price-badge {
+        align-items: center;
+    }
+    
+    .result-title {
+        font-size: 1.8rem;
+    }
+    
+    .result-icon {
+        font-size: 3rem;
+    }
+    
+    .inputs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .result-details {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-text {
+        font-size: 1.2rem;
+    }
+    
+    .result-title {
+        font-size: 1.5rem;
+    }
+    
+    .result-card {
+        padding: var(--space-lg);
+    }
+}
+
+/* =============================================
+   Utility Classes
+   ============================================= */
+.text-orange {
+    color: var(--btc-orange);
+}
+
+.text-success {
+    color: var(--success);
+}
+
+.text-warning {
+    color: var(--warning);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.shimmer {
+    background: linear-gradient(90deg, 
+        rgba(247, 147, 26, 0.1) 0%, 
+        rgba(247, 147, 26, 0.2) 50%, 
+        rgba(247, 147, 26, 0.1) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
