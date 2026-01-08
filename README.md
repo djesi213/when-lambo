@@ -59,4 +59,4 @@ npx serve .
 
 ## License
 
-MIT - Stack sats and dream big! ₿
+AGPLv3 - Stack sats and dream big! ₿
