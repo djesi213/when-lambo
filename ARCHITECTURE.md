@@ -238,25 +238,52 @@ Libraries like Chart.js or lightweight options like uPlot work well.
 
 ---
 
-## Firebase Deployment
+## Deployment
 
-### First-Time Setup
+### GitHub Pages (Recommended)
+
+**Current deployment**: https://djesi213.github.io/when-lambo/
+
+GitHub Pages is ideal for this static app:
+- ✅ **100% free** with unlimited bandwidth
+- ✅ **Automatic deployments** on every push to `main`
+- ✅ **Global CDN** via Fastly
+- ✅ **Free SSL** for custom domains
+- ✅ **Zero configuration** needed
+
+**To enable:**
+1. Go to repo Settings → Pages
+2. Source: Deploy from branch `main` / `(root)`
+3. Save and wait 1-2 minutes
+
+**Custom domain:**
+1. Add a `CNAME` file with your domain name
+2. Configure DNS with your domain provider
+3. GitHub automatically provisions SSL
+
+---
+
+### Firebase Hosting (Alternative)
+
+If you need Firebase features (Auth, Firestore, Analytics):
+
+**First-Time Setup**
 
 ```bash
 npm install -g firebase-tools
 firebase login
-firebase projects:create when-lambo-your-id
+# Create project in Firebase Console: https://console.firebase.google.com/
 # Update .firebaserc with your project ID
 firebase deploy
 ```
 
-### Subsequent Deploys
+**Subsequent Deploys**
 
 ```bash
 firebase deploy
 ```
 
-### Custom Domain
+**Custom Domain**
 
 1. Go to Firebase Console → Hosting → Add custom domain
 2. Follow DNS verification steps

@@ -27,11 +27,23 @@ A Bitcoin savings calculator that shows you when you'll be able to afford your d
 - Responsive design with mobile support
 - Firebase Hosting ready
 
-## Deployment to Firebase
+## Deployment
 
+### GitHub Pages (Current)
+
+This app is deployed to GitHub Pages at: **https://djesi213.github.io/when-lambo/**
+
+To deploy updates:
+1. Push changes to the `main` branch
+2. GitHub Pages automatically rebuilds and deploys
+3. Changes are live in 1-2 minutes
+
+### Alternative: Firebase Hosting
+
+If you prefer Firebase:
 1. Install Firebase CLI: `npm install -g firebase-tools`
 2. Login: `firebase login`
-3. Create a project: `firebase projects:create when-lambo`
+3. Create a project in [Firebase Console](https://console.firebase.google.com/)
 4. Update `.firebaserc` with your project ID
 5. Deploy: `firebase deploy`
 
